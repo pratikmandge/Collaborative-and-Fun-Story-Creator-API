@@ -13,6 +13,7 @@ Developed a full-stack "Collaborative and Fun Story Creator" web application whe
    - `python.exe --version` - Python 3.12.4
    - `node.exe --version` - v20.15.0
    - `npm.cmd --version` - 10.7.0
+   - Require `MySQL` database for running backend. If not than change the configuration of database `settings.py` to `sqlite`
 
 3. **Frontend:**
    - `cd frontend`
