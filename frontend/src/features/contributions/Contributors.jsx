@@ -54,7 +54,7 @@ const Contributors = () => {
         <main className='contributor'>
             <h2>Story: {stories?.[0]?.title}</h2>
             <p></p>
-            <table>
+            <table id='contribution-table'>
                 <thead>
                     <tr>
                         <th>Contributor</th>
@@ -78,7 +78,7 @@ const Contributors = () => {
                                     contribution.text
                                 )}
                             </td>
-                            <td>{moment(contribution.created_at).startOf('hour').fromNow()}</td>
+                            <td>{moment(contribution.created_at).fromNow()}</td>
                             <td>
                                 {editingId === contribution.id ? (
                                     <>

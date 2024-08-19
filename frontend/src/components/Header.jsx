@@ -23,7 +23,7 @@ const Header = () => {
             <Link to={"/"}>
                 <img src="/story.jpeg" alt="story logo" />
             </Link>
-            <div>Story App</div>
+            <h3>Collaborative and Fun Story Creator</h3>
             {currentUser ?
                 <div>
                     <p>{currentUser}</p>

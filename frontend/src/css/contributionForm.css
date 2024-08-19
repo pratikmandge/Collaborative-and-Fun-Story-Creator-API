@@ -5,15 +5,41 @@
     box-sizing: border-box;
 }
 
-h2 {
+#story-name {
     font-size: 1.5rem;
     color: #333;
     margin-bottom: 1rem;
 }
 
-form {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#add-contribution {
     display: flex;
     flex-direction: column;
+    width: 500px;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    animation: fadeIn 0.6s ease-out;
+}
+
+#add-contribution:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 label {
@@ -29,8 +55,9 @@ textarea {
     border-radius: 4px;
     font-size: 1rem;
     box-sizing: border-box;
-    resize: vertical;
+    resize: none;
     margin-bottom: 1rem;
+    outline: unset;
 }
 
 button {

@@ -13,13 +13,6 @@
     }
 }
 
-/* main {
-    font-family: Arial, sans-serif;
-    padding: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-} */
-
 h2 {
     color: #333;
     margin-bottom: 1rem;
@@ -27,49 +20,69 @@ h2 {
     text-align: center;
 }
 
-table {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#contribution-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
     background-color: #f9f9f9;
     border-radius: 8px;
     overflow: hidden;
+    animation: fadeIn 0.6s ease-out;
 }
 
-thead {
+#contribution-table thead {
     background-color: #007bff;
     color: white;
 }
 
-th, td {
+#contribution-table th,
+#contribution-table td {
     padding: 12px 15px;
-    text-align: left;
+    text-align: center;
 }
 
-th {
+#contribution-table th {
     font-weight: bold;
     border-bottom: 2px solid #0056b3;
 }
 
-td {
+#contribution-table td {
     border-bottom: 1px solid #ddd;
 }
 
-@media (max-width: 768px) {
-    table {
-        font-size: 0.875rem;
-    }
-
-    th, td {
-        padding: 8px;
-    }
-
-    th {
-        font-size: 0.875rem;
-    }
+#contribution-table tr>td:nth-child(2) {
+    text-align: left;
 }
 
-button {
+#contribution-table tbody>tr {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.3s ease;
+}
+
+#contribution-table tbody>tr:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+    border-color: #bbb;
+}
+
+#contribution-table button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -77,15 +90,15 @@ button {
     padding: 8px 12px;
     cursor: pointer;
     font-size: 0.875rem;
-    margin: 0 4px;
+    margin: 0.2rem;
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+#contribution-table button:hover {
     background-color: #0056b3;
 }
 
-input[type="text"] {
+#contribution-table input[type="text"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
@@ -95,7 +108,20 @@ input[type="text"] {
 }
 
 @media (max-width: 768px) {
-    button {
+    #contribution-table {
+        font-size: 0.875rem;
+    }
+
+    #contribution-table th,
+    #contribution-table td {
+        padding: 8px;
+    }
+
+    #contribution-table th {
+        font-size: 0.875rem;
+    }
+
+    #contribution-table button {
         padding: 6px 10px;
         font-size: 0.75rem;
     }

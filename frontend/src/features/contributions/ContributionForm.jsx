@@ -47,10 +47,10 @@ const ContributionForm = () => {
   }
 
   return (
-    <div>
-      <h2>Contribute to {stories?.[0]?.title} Story</h2>
+    <main>
+      <h2 id='story-name'>Contribute to {stories?.[0]?.title} Story</h2>
       {success && <p className="success">Thank you for your contribution!</p>}
-      <form onSubmit={handleSubmit}>
+      <form id='add-contribution' onSubmit={handleSubmit}>
         <div>
           <label htmlFor="text">Your Contribution:</label>
           <textarea
@@ -65,7 +65,7 @@ const ContributionForm = () => {
         </button>
         {contributionsError && <p className="error">{contributionsError}</p>}
       </form>
-    </div>
+    </main>
   );
 };
 

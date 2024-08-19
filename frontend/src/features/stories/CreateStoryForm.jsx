@@ -15,21 +15,25 @@ const CreateStoryForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input 
-                type="text" 
-                value={title} 
-                onChange={(e) => setTitle(e.target.value)} 
-                placeholder="Story Title"
-                required
-            />
-            <input 
-                type="file" 
-                onChange={(e) => setImage(e.target.files[0])} 
-                accept=".jpg,.jpeg,.png"
-            />
-            <button type="submit">Create Story</button>
-        </form>
+        <main>
+            <h2 id='create-story-title'>Create Story</h2>
+            <form id='create-story' onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Story Title"
+                    required
+                />
+                <input
+                    type="file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    accept=".jpg,.jpeg,.png"
+                    placeholder='upload image'
+                />
+                <button type="submit">Create Story</button>
+            </form>
+        </main>
     );
 };
 

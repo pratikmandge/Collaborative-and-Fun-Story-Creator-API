@@ -4,7 +4,16 @@ header {
     align-items: center;
     padding: 15px 20px;
     background-color: #92d6f3;
-    color: #fff;
+}
+
+header h3{
+    background: linear-gradient(90deg, #ff7e5f, #feb47b); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    letter-spacing: 1px;
 }
 
 header img {
