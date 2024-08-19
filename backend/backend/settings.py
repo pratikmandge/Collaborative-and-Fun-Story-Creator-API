@@ -129,6 +129,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
 
 # MySQL
 # DATABASES = {
@@ -143,13 +150,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # }
 
 # Render settings
-DATABASES = {
-    'default': dj_database_url.config(
-        default=env('DEFAULT'),
-        conn_max_age=600,
-        engine=env("ENGINE")
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=env('DEFAULT'),
+#         conn_max_age=600,
+#         engine=env("ENGINE")
+#     )
+# }
 
 # postgre
 # DATABASES = {
