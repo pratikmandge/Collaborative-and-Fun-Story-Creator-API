@@ -23,5 +23,5 @@ from story_creator import urls as story_creator_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include(story_creator_urls)),  # Ensure 'story_creator_urls' is correctly referenced
+    path("", include(story_creator_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

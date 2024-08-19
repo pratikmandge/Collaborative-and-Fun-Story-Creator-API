@@ -14,6 +14,9 @@ from rest_framework.decorators import api_view
 
 # Create your views here.
 
+def home(request):
+    return JsonResponse({'message': 'Welcome to the Backend of Story App'})
+
 class UserRegistrationView(generics.CreateAPIView):
     serializer_class = UserSerializer
     def post(self, request):
