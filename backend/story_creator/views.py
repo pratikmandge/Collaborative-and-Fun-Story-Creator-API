@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from rest_framework.exceptions import NotFound
 from rest_framework import generics, status, permissions, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -7,12 +8,16 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import ContributionSerializer, StorySerializer, UserSerializer
 from .models import Contribution, Story
+# from django.shortcuts import get_object_or_404
+# from rest_framework.decorators import action
+from rest_framework.decorators import api_view
 
 # Create your views here.
 
 class UserRegistrationView(generics.CreateAPIView):
+    serializer_class = UserSerializer
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             refresh = RefreshToken.for_user(user)
@@ -39,23 +44,22 @@ class ExpiredTokenRefreshView(TokenRefreshView):
         refresh_token = request.COOKIES.get('refresh')
 
         if not refresh_token:
-            response = JsonResponse({'error': 'Missing refresh token in cookie'}, status=400)
-            return response
-        
+            return JsonResponse({'error': 'Missing refresh token in cookie'}, status=400)
+
         request.data['refresh'] = refresh_token
         response = super().post(request, *args, **kwargs)
 
-        if response.status_code == status.HTTP_201_CREATED:
-            access_token = str(response.data['access'])
+        if response.status_code == status.HTTP_200_OK:
+            access_token = response.data.get('access')
+            refresh_token = response.data.get('refresh')
 
-            # For Production (HTTPS)
-            # response.set_cookie('access', access_token, httponly=True, samesite=None, secure=True)
-            # response.set_cookie('refresh', str(refresh), httponly=True, samesite=None, secure=True)
-
-            # For Local Dev
-            response.set_cookie('access', access_token, httponly=True, samesite='Lax')
+            if access_token:
+                response.set_cookie('access', access_token, httponly=True, samesite='Lax')
+            if refresh_token:
+                response.set_cookie('refresh', refresh_token, httponly=True, samesite='Lax')
 
         return response
+
 
 class LogoutView(APIView):
     def post(self, request):
@@ -86,3 +90,17 @@ class ContributionViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+@api_view(['GET'])
+def story_contributions(request, pk):
+    """
+    Get contributions for a specific story.
+    """
+    try:
+        story = Story.objects.get(pk=pk)
+    except Story.DoesNotExist:
+        raise NotFound("Story not found")
+
+    contributions = Contribution.objects.filter(story=story)
+    serializer = ContributionSerializer(contributions, many=True)
+    return Response(serializer.data)
