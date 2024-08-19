@@ -129,6 +129,8 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
+# MySQL
 # DATABASES = {
 #     "default": {
 #         "ENGINE": env("ENGINE"),
@@ -140,12 +142,19 @@ WSGI_APPLICATION = "backend.wsgi.application"
 #     }
 # }
 
+# Render settings
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=env('DEFAULT'),
+#         conn_max_age=600,
+#         engine=env("ENGINE")
+#     )
+# }
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=env('DEFAULT'),
-        conn_max_age=600,
-        engine=env("ENGINE")
+        default='postgresql://postgres:postgres@localhost:5432/story_creator_db',
+        conn_max_age=600
     )
 }
 
