@@ -2,10 +2,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 
-.story-title a{
-    text-decoration: unset;
+.story-title h1 {
+    margin: 0;
+}
+
+.story-title a {
+    text-decoration: none;
 }
 
 .cards {
@@ -83,4 +88,10 @@ ul a {
 
 .card {
     animation: fadeIn 0.6s ease-out;
+}
+
+@media screen and (max-width:1653px) {
+    .cards {
+        justify-content: center;
+    }
 }
