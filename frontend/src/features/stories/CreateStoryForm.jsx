@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createStory } from '../stories/storySlice';
+import { Link } from 'react-router-dom'
 import '../../css/createStoryForm.css'
 
 const CreateStoryForm = () => {
@@ -29,9 +30,9 @@ const CreateStoryForm = () => {
                     type="file"
                     onChange={(e) => setImage(e.target.files[0])}
                     accept=".jpg,.jpeg,.png"
-                    placeholder='upload image'
                 />
                 <button type="submit">Create Story</button>
+                <p><Link to={"/"}>Home</Link></p>
             </form>
         </main>
     );

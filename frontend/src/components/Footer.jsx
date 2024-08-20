@@ -4,7 +4,7 @@ import '../css/footer.css'
 const Footer = () => {
   return (
     <footer>
-        <div>Thank You!</div>
+        <div>Design and Develop by Pratik Mandge</div>
     </footer>
   )
 }

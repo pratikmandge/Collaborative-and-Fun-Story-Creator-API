@@ -28,7 +28,7 @@
     flex-direction: column;
     width: 500px;
     padding: 1rem;
-    background: #fff;
+    background: #ffffff67;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -58,6 +58,7 @@ textarea {
     resize: none;
     margin-bottom: 1rem;
     outline: unset;
+    background: #ffffff67;
 }
 
 button {

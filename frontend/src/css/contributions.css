@@ -36,14 +36,13 @@ h2 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
-    background-color: #f9f9f9;
     border-radius: 8px;
     overflow: hidden;
     animation: fadeIn 0.6s ease-out;
 }
 
 #contribution-table thead {
-    background-color: #007bff;
+    background-color: #007bff5f;
     color: white;
 }
 
@@ -67,7 +66,7 @@ h2 {
 }
 
 #contribution-table tbody>tr {
-    background-color: #ffffff;
+    background-color: #ffffffa6;
     border: 1px solid #ccc;
     transition:
         background-color 0.3s ease,
@@ -76,7 +75,7 @@ h2 {
 }
 
 #contribution-table tbody>tr:hover {
-    background-color: #f0f0f0;
+    background-color: #f0f0f000;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transform: translateY(-4px);
     border-color: #bbb;
@@ -91,6 +90,7 @@ h2 {
     cursor: pointer;
     font-size: 0.875rem;
     margin: 0.2rem;
+    width: 70px;
     transition: background-color 0.3s ease;
 }
 
@@ -102,9 +102,11 @@ h2 {
     width: 100%;
     padding: 8px;
     border: 1px solid #ddd;
+    background-color: #ffffff5c;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 0.875rem;
+    outline: none;
 }
 
 @media (max-width: 768px) {

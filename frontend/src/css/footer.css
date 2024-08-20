@@ -9,3 +9,7 @@ footer {
     font-size: 1rem;
     margin-top: auto;
 }
+
+footer div{
+    color: black;
+}
