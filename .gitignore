@@ -1,5 +1,4 @@
 venv
-backend/staticfiles/admin/js/vendor/select2/i18n/af.js
 backend/__pycache__/
 backend/backend/__pycache__/
 backend/story_creator/__pycache__/

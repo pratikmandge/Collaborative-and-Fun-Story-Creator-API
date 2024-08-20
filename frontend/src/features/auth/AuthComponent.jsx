@@ -42,7 +42,7 @@ const AuthComponent = () => {
     return (
         <main className="auth-container">
             <div className="auth-form">
-                <h1 className="auth-title">{isLoginPage ? 'Login' : 'Register'}</h1>
+                <h1 className="auth-title">{isLoginPage ? 'Login' : 'Signup'}</h1>
                 <input
                     type="text"
                     id="username"
@@ -66,7 +66,7 @@ const AuthComponent = () => {
                 )}
                 {isSignUpPage && (
                     <button id="register-button" className="auth-button" onClick={handleRegister}>
-                        Register
+                        Signup
                     </button>
                 )}
                 {auth.status === 'failed' && <p className="auth-error">{auth.error}</p>}

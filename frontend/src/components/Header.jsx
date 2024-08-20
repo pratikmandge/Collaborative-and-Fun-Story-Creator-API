@@ -23,15 +23,15 @@ const Header = () => {
             <Link to={"/"}>
                 <img src="/story.jpeg" alt="story logo" />
             </Link>
-            <h3>Collaborative and Fun Story Creator</h3>
+            <h3>Fun Story Creator</h3>
             {currentUser ?
                 <div>
                     <p>{currentUser}</p>
-                    <button onClick={logoutUser}>Logout</button>
+                    <button onClick={logoutUser} className="button logout">Logout</button>
                 </div> :
-                <div>
-                    <Link to={'/login'}>Login</Link>
-                    <Link to={'/signup'}>Regiter</Link>
+                <div id='auth'>
+                    <Link to={'/login'} className="button login">Login</Link>
+                    <Link to={'/signup'} className="button Register">Signup</Link>
                 </div>
             }
         </header>

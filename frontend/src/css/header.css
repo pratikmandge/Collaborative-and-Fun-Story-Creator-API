@@ -6,14 +6,15 @@ header {
     background-color: #92d6f3;
 }
 
-header h3{
-    background: linear-gradient(90deg, #ff7e5f, #feb47b); 
+header h3 {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 2em;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
     letter-spacing: 1px;
+    margin: 0;
 }
 
 header img {
@@ -43,4 +44,43 @@ header button {
 
 header button:hover {
     background-color: #143bbe;
+}
+
+
+
+#auth {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #314ca5, #92d6f3);
+    box-shadow: inset 4px 4px 8px rgb(92 92 93 / 40%), inset -4px -4px 8px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.4),
+        -4px -4px 8px rgba(255, 255, 255, 0.3);
+    background: linear-gradient(145deg, #6a6a6a, #3d3d3d);
+}
+
+.button:active {
+    background: #3d3d3d;
+    box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.login, .logout {
+    background-color: #007bff;
+}
+
+.register {
+    background-color: #28a745;
 }
