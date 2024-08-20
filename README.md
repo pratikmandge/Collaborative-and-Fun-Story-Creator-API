@@ -30,5 +30,7 @@ Developed a full-stack "Collaborative and Fun Story Creator" web application whe
 5. **Backend:**
    - `cd backend`
    - Install python site-packages `pip install .\requirements.txt`
-   - Start backend server `python.exe .\manage.py runserver`
+   - Make migrations `python manage.py makemigrations` and than `python manage.py migrate`
+   - After successful migration create a superuser for accessing the admin panel and control over the project `python manage.py createsuperuser`
+   - Than start backend server `python.exe .\manage.py runserver`
    - Backend is started!
