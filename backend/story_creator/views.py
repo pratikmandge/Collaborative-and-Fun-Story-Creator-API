@@ -8,8 +8,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import ContributionSerializer, StorySerializer, UserSerializer
 from .models import Contribution, Story
-# from django.shortcuts import get_object_or_404
-# from rest_framework.decorators import action
 from rest_framework.decorators import api_view
 
 # Create your views here.

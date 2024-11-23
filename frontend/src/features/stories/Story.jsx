@@ -9,6 +9,8 @@ const Story = () => {
     const dispatch = useDispatch();
     const { contributions, status: contributionsStatus, error: contributionsError } = useSelector((state) => state.contributions);
     const { stories, status: storiesStatus, error: storiesError } = useSelector((state) => state.stories);
+    const matchedStory = stories?.find(story => story.id === parseInt(storyId));
+    const matchedContribution = contributions?.filter(story => story.story === parseInt(storyId))
 
     useEffect(() => {
         if (contributionsStatus === 'idle' || storiesStatus === 'idle') {
@@ -31,10 +33,10 @@ const Story = () => {
                 <Link to={`contributors`}>Want to Know Contributors?</Link>
                 <Link to={`contribute`}>+ Contribute to Story</Link>
             </div>
-            <h2>Story: {stories?.[0]?.title}</h2>
-            <img src={stories?.[0]?.image} alt="" />
+            <h2>Story: {matchedStory?.title}</h2>
+            <img src={matchedStory?.image} alt="" />
             <p></p>
-            {contributions.map((contribution) => (
+            {matchedContribution?.map((contribution) => (
                 <span key={contribution.id}>
                     {contribution.text}{" "}
                 </span>

@@ -7,24 +7,40 @@ const initialState = {
   error: null,
 };
 
-export const addContribution = createAsyncThunk('contributions/addContribution', async (newContribution) => {
-  const response = await api.post('/api/contributions/', newContribution);
-  return response.data;
+export const addContribution = createAsyncThunk('contributions/addContribution', async (newContribution, { rejectWithValue }) => {
+  try {
+    const response = await api.post('/api/contributions/', newContribution);
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data.non_field_errors[0]);
+  }
 });
 
-export const fetchStoryContributions = createAsyncThunk('contributions/fetchStoryContributions', async (storyId) => {
-  const response = await api.get(`/story/${storyId}/contributions/`);
-  return response.data;
+export const fetchStoryContributions = createAsyncThunk('contributions/fetchStoryContributions', async (storyId, { rejectWithValue }) => {
+  try {
+    const response = await api.get(`/story/${storyId}/contributions/`);
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data['detail'])
+  }
 });
 
-export const updateContribution = createAsyncThunk('contributions/updateContribution', async ({ id, updatedContribution }) => {
-  const response = await api.put(`/api/contributions/${id}/`, updatedContribution);
-  return response.data;
+export const updateContribution = createAsyncThunk('contributions/updateContribution', async ({ id, updatedContribution }, { rejectWithValue }) => {
+  try {
+    const response = await api.put(`/api/contributions/${id}/`, updatedContribution);
+    return response.data;
+  } catch (err) {
+    return rejectWithValue(err.response.data.non_field_errors[0]);
+  }
 });
 
-export const deleteContribution = createAsyncThunk('contributions/deleteContribution', async (id) => {
-  await api.delete(`/api/contributions/${id}/`);
-  return id;
+export const deleteContribution = createAsyncThunk('contributions/deleteContribution', async (id, { rejectWithValue }) => {
+  try {
+    await api.delete(`/api/contributions/${id}/`);
+    return id;
+  } catch (err) {
+    return rejectWithValue(err.response.data.detail)
+  }
 });
 
 const contributionSlice = createSlice({
@@ -39,7 +55,7 @@ const contributionSlice = createSlice({
       })
       .addCase(addContribution.rejected, (state, action) => {
         state.status = 'failed';
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       })
       .addCase(fetchStoryContributions.pending, (state) => {
         state.status = 'loading';

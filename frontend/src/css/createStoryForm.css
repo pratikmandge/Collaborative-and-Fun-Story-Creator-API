@@ -11,7 +11,6 @@
 #create-story {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #f9f9f96a;
-    width: 100%;
     padding: 2rem;
     border-radius: 10px;
 }
@@ -47,16 +46,16 @@
     background-color: #0056b3;
 }
 
-#create-story p{
+#create-story p {
     margin: 0.5rem;
     text-align: center;
 }
 
-#create-story p a{
+#create-story p a {
     text-decoration: none;
     color: #007bff;
 
-    &:hover{
+    &:hover {
         text-decoration: underline;
     }
 }

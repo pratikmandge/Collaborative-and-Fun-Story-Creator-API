@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Contribution, Story
+from rest_framework import serializers
+from django.core.exceptions import ValidationError
+from django.core.files.storage import default_storage
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -13,36 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
-
-
-# class StorySerializer(serializers.ModelSerializer):
-#     author = UserSerializer(read_only=True)
-#     image = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True, required=True)
-
-#     class Meta:
-#         model = Story
-#         fields = "__all__"
-
-
-#     def get_contributions(self, obj):
-#         contributions = Contribution.objects.filter(story=obj)
-#         return ContributionSerializer(contributions, many=True).data
-
-#     # def create(self, validated_data):
-#     #     print('Creating with data:', validated_data)
-#     #     return super().create(validated_data)
-
-
-#     def validate_image(self, value):
-#         if value.size > 2 * 1024 * 1024:
-#             raise serializers.ValidationError("Image size should not exceed 2MB.")
-        
-#         if not value.name.endswith((".jpg", ".jpeg", ".png")):
-#             raise serializers.ValidationError("Only, .jpg, .jpeg and .png file formats are allowed")
-
-
-from rest_framework import serializers
-from django.core.files.storage import default_storage
+    
 
 class StorySerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
@@ -51,6 +25,16 @@ class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = '__all__'
+
+    def validate_image(self, value):
+        max_size = 2 * 1024 * 1024
+        if value.size > max_size:
+            raise ValidationError("Image size should not exceed 2MB.")
+        valid_formats = ['image/jpeg', 'image/png', 'image/jpg']
+        if value.content_type not in valid_formats:
+            raise ValidationError("Only .jpg, .jpeg, and .png file formats are allowed.")
+
+        return value
 
     def create(self, validated_data):
         image = validated_data.pop('image', None)

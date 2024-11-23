@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import moment from 'moment';
 import { fetchStoryContributions } from '../contributions/contributionSlice';
 import { fetchSingleStories } from '../stories/storySlice';
@@ -12,6 +12,8 @@ const Contributors = () => {
     const dispatch = useDispatch();
     const { contributions, status: contributionsStatus, error: contributionsError } = useSelector((state) => state.contributions);
     const { stories, status: storiesStatus, error: storiesError } = useSelector((state) => state.stories);
+    const matchedStory = stories?.find(story => story.id === parseInt(storyId));
+    const matchedContribution = contributions?.filter(story => story.story === parseInt(storyId))
 
     const [editingId, setEditingId] = useState(null);
     const [editedText, setEditedText] = useState('');
@@ -52,50 +54,52 @@ const Contributors = () => {
 
     return (
         <main className='contributor'>
-            <h2>Story: {stories?.[0]?.title}</h2>
+            <h2>Story: {matchedStory?.title}</h2>
             <p></p>
-            <table id='contribution-table'>
-                <thead>
-                    <tr>
-                        <th>Contributor</th>
-                        <th>Contribution</th>
-                        <th>Contributed On</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {contributions.map((contribution) => (
-                        <tr key={contribution.id}>
-                            <td>{contribution.author.username}</td>
-                            <td>
-                                {editingId === contribution.id ? (
-                                    <input
-                                        type="text"
-                                        value={editedText}
-                                        onChange={(e) => setEditedText(e.target.value)}
-                                    />
-                                ) : (
-                                    contribution.text
-                                )}
-                            </td>
-                            <td>{moment(contribution.created_at).fromNow()}</td>
-                            <td>
-                                {editingId === contribution.id ? (
-                                    <>
-                                        <button onClick={handleUpdateClick}>Update</button>
-                                        <button onClick={handleCancelClick}>Cancel</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button onClick={() => handleEditClick(contribution)}>Edit</button>
-                                        <button onClick={() => handleDeleteClick(contribution.id)}>Delete</button>
-                                    </>
-                                )}
-                            </td>
+            {contributions?.[0] == undefined ?
+                <Link to={`/story/${storyId}/contribute`}>Click here Start Contribution from you</Link> :
+                <table id='contribution-table'>
+                    <thead>
+                        <tr>
+                            <th>Contributor</th>
+                            <th>Contribution</th>
+                            <th>Contributed On</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {matchedContribution?.map((contribution) => (
+                            <tr key={contribution.id}>
+                                <td>{contribution.author.username}</td>
+                                <td>
+                                    {editingId === contribution.id ? (
+                                        <input
+                                            type="text"
+                                            value={editedText}
+                                            onChange={(e) => setEditedText(e.target.value)}
+                                        />
+                                    ) : (
+                                        contribution.text
+                                    )}
+                                </td>
+                                <td>{moment(contribution.created_at).fromNow()}</td>
+                                <td>
+                                    {editingId === contribution.id ? (
+                                        <>
+                                            <button onClick={handleUpdateClick}>Update</button>
+                                            <button onClick={handleCancelClick}>Cancel</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button onClick={() => handleEditClick(contribution)}>Edit</button>
+                                            <button onClick={() => handleDeleteClick(contribution.id)}>Delete</button>
+                                        </>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>}
         </main>
     );
 };

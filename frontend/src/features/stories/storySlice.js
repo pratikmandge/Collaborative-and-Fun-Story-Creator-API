@@ -7,35 +7,44 @@ const initialState = {
     error: null,
 };
 
-export const fetchSingleStories = createAsyncThunk('stories/fetchSingleStories', async (storyId) => {
-    const response = await api.get(`/api/stories/${storyId}`);
-    return response.data;
+export const fetchSingleStories = createAsyncThunk('stories/fetchSingleStories', async (storyId, { rejectWithValue }) => {
+    try {
+        const response = await api.get(`/api/stories/${storyId}`);
+        return response.data;
+    } catch (err) {
+        return rejectWithValue(err.response.data.detail)
+    }
 });
 
-export const fetchStories = createAsyncThunk('stories/fetchStories', async () => {
-    const response = await api.get('/api/stories/');
-    return response.data;
+export const fetchStories = createAsyncThunk('stories/fetchStories', async (_, { rejectWithValue }) => {
+    try {
+        const response = await api.get('/api/stories/');
+        return response.data;
+    } catch (err) {
+        return rejectWithValue(err.response.data)
+    }
 });
 
-export const createStory = createAsyncThunk('stories/createStory', async (newStory) => {
-    const formData = new FormData();
-    const { title, image } = newStory;  // Destructure image property
+export const createStory = createAsyncThunk('stories/createStory', async (newStory, { rejectWithValue }) => {
+    try {
+        const formData = new FormData();
+        const { title, image } = newStory;
 
-    formData.append('title', title);
-    formData.append('image', image, image.name);  // Include filename
+        formData.append('title', title);
+        formData.append('image', image, image.name);
 
-    // for (const key in newStory) {
-    //     if (newStory.hasOwnProperty(key)) {
-    //         formData.append(key, newStory[key]);
-    //     }
-    // }
+        const response = await api.post('/api/stories/', formData);
+        return response.data;
+    } catch (err) {
+        console.error('Caught error:', err);
 
-    // console.log('Image type:', newStory['image'] instanceof File)
-    // console.log('FormData:', [...formData.entries()]);
-    // console.log('FormData:', [...formData.entries()]);
-
-    const response = await api.post('/api/stories/', formData);
-    return response.data;
+        if (err.response) {
+            console.error('Error response data:', err.response.data);
+            return rejectWithValue(err.response.data);
+        } else {
+            return rejectWithValue('An unexpected error occurred');
+        }
+    }
 });
 
 
@@ -59,7 +68,7 @@ const storySlice = createSlice({
             })
             .addCase(createStory.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                state.error = action.payload ? action.payload : action.error.message;
             })
             .addCase(fetchSingleStories.pending, (state) => {
                 state.status = 'loading';

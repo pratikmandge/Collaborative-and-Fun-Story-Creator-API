@@ -16,6 +16,10 @@ class Story(models.Model):
         if self.contributions.count() >= self.max_contributions:
             self.completed = True
             self.save()
+    
+    class Meta:
+        verbose_name = "Story"
+        verbose_name_plural = "Stories"
 
 
 class Contribution(models.Model):
